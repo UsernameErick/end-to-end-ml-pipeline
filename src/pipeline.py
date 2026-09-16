@@ -21,7 +21,7 @@ def run_pipeline():
         register_model(run_id)
     else:
         print("CI mode: model registration skipped.")
-    # register_model(run_id) # если модель прошла то регистрируем ее. закомментил 
+    # register_model(run_id) # если модель прошла то регистрируем ее. закомментил потому что с ci пришло новое условие: если ci != true (на локалке), то регает, если на серваке, то скип потому что там оно зарегается и при отключении сервера пропадет
 
 if __name__ == "__main__":
     run_pipeline()
