@@ -1,0 +1,23 @@
+artifact_path: file:///C:/Users/erick/Desktop/da/end-to-end ml pipeline/artifacts/1/models/m-b6395f6356a14ea1a81c2dac0804692a/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.skops
+    predict_fn: predict
+    python_version: 3.12.5
+  sklearn:
+    code: null
+    pickled_model: model.skops
+    serialization_format: skops
+    sklearn_version: 1.6.1
+    skops_trusted_types: null
+mlflow_version: 3.15.1
+model_id: m-b6395f6356a14ea1a81c2dac0804692a
+model_size_bytes: 9581
+model_uuid: m-b6395f6356a14ea1a81c2dac0804692a
+prompts: null
+run_id: 9d0536090cd242639e79eb5bae9c599d
+utc_time_created: '2026-09-15 14:09:33.566592'

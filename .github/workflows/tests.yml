@@ -1,0 +1,25 @@
+# файл для Github Actions. при пуше в гитхаб он получает содержимое устанавливая все что мы указали и запускает 2 теста что мы указали
+name: Tests
+
+on:
+  push:
+  pull request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkouts@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pytest
+          
+      - name: Run tests
+        run: pytest tests/test_evaluate.py
