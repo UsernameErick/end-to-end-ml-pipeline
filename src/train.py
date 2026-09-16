@@ -1,6 +1,7 @@
 # файл отвечает только за обучение модели и сохранение в mlflow
 import mlflow
 import mlflow.sklearn
+import os
 
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split, cross_val_score
@@ -8,7 +9,12 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 
 def train_model():
-    mlflow.set_tracking_uri("http://127.0.0.1:5000")
+    if os.getenv("CI") == "true":
+        mlflow.set_tracking_uri("file:./mlruns") # если ci == true (происходит на github actions) тогда такой путь
+    else:
+        mlflow.set_tracking_uri("127.0.0.1:5000") # если локально то такой путь
+
+    
     mlflow.set_experiment("iris_mlops_pipeline")
     
     X, y = load_iris(return_X_y=True)

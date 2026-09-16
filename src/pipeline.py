@@ -2,6 +2,7 @@
 from train import train_model
 from evaluate import evaluate_model
 from register import register_model
+import os
 
 def run_pipeline():
     result = train_model() # return'ом получаем модель и параметры
@@ -12,10 +13,15 @@ def run_pipeline():
     run_id = result["run_id"]
     accuracy = result["accuracy"]
 
-    evaluation_accuracy, passed = evaluate_model(accuracy) # получаем accuracy и True False прошел ли quality gate
+    passed = evaluate_model(accuracy) # получаем accuracy и True False прошел ли quality gate
     if not passed: # если меньше порога quality gate(файл evaluate.py)
         return
-    register_model(run_id) # если модель прошла то регистрируем ее
+
+    if os.getenv("CI") != "true":
+        register_model(run_id)
+    else:
+        print("CI mode: model registration skipped.")
+    # register_model(run_id) # если модель прошла то регистрируем ее. закомментил 
 
 if __name__ == "__main__":
     run_pipeline()

@@ -23,3 +23,7 @@ jobs:
           
       - name: Run tests
         run: pytest tests/test_evaluate.py
+
+      - name: Run ML pipeline
+        working-directory: src
+        run: python pipeline.py
