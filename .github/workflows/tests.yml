@@ -9,6 +9,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    env: 
+      MLFLOW_ALLOW_FILE_STORE: "true"
+      
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
