@@ -12,8 +12,10 @@ def train_model():
     if os.getenv("CI") == "true":
         mlflow.set_tracking_uri("file:./mlruns") # если ci == true (происходит на github actions) тогда такой путь
     else:
-        mlflow.set_tracking_uri("127.0.0.1:5000") # если локально то такой путь
+        mlflow.set_tracking_uri("http://127.0.0.1:5000") # если локально то такой путь
 
+    print("CI:", os.getenv("CI"))
+    print("MLflow URI:", mlflow.get_tracking_uri())
     
     mlflow.set_experiment("iris_mlops_pipeline")
     
