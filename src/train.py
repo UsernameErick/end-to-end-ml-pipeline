@@ -51,13 +51,20 @@ def train_model():
         mlflow.log_metric("accuracy", best_accuracy)
         mlflow.log_metric("cv_accuracy", best_cv_accuracy)
         mlflow.sklearn.log_model(best_model, name="model")
+
+        model_info = mlflow.sklearn.log_model(best_model, name="model")
+        model_uri = model_info.model_uri # сохраняем отдельно model_uri
+
+        print("Logged model URI:", model_info.model_uri)
+        print("Logged model ID:", model_info.model_id)
+
         run_id = mlflow.active_run().info.run_id # логируем текущий id рана
 
         print(f"Best C: {best_C}")
         print(f"Accuracy: {best_accuracy:.4f}")
         print(f"CV Accuracy: {best_cv_accuracy:.4f}")
 
-        return {"run_id": run_id, "model": best_model, "X_test":X_test, "y_test": y_test,"accuracy": best_accuracy, "cv_accuracy": cv_accuracy}
+        return {"run_id": run_id, "model": best_model, "X_test":X_test, "y_test": y_test,"accuracy": best_accuracy, "cv_accuracy": cv_accuracy, "model_uri": model_uri}
 
 if __name__ == "__main__":
     train_model()    

@@ -5,12 +5,12 @@ from mlflow import MlflowClient
 mlflow.set_tracking_uri("http://127.0.0.1:5000")
 client = MlflowClient()
 
-def register_model(run_id):
+def register_model(run_id, model_uri):
     run = client.get_run(run_id)
     new_cv_accuracy = run.data.metrics["cv_accuracy"]
     print(f"New CV Accuracy: {new_cv_accuracy:.4f}")
 
-    model_uri = f"runs:/{run_id}/model"
+    #model_uri = f"runs:/{run_id}/model"
 
     registered_model = mlflow.register_model(model_uri=model_uri, name="iris_mlops_pipeline")
     new_version = registered_model.version

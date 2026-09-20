@@ -12,13 +12,15 @@ def run_pipeline():
     y_test = result["y_test"]
     run_id = result["run_id"]
     accuracy = result["accuracy"]
+    cv_accuracy = result["cv_accuracy"]
+    model_uri = result["model_uri"]
 
     passed = evaluate_model(accuracy) # получаем accuracy и True False прошел ли quality gate
     if not passed: # если меньше порога quality gate(файл evaluate.py)
-        return
+        raise RuntimeError("Model failed quality gate.")
 
     if os.getenv("CI") != "true":
-        register_model(run_id)
+        register_model(run_id, model_uri)
     else:
         print("CI mode: model registration skipped.")
     # register_model(run_id) # если модель прошла то регистрируем ее. закомментил потому что с ci пришло новое условие: если ci != true (на локалке), то регает, если на серваке, то скип потому что там оно зарегается и при отключении сервера пропадет
