@@ -2,17 +2,25 @@
 import mlflow
 import mlflow.sklearn
 import os
+from dotenv import load_dotenv
 
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 
+load_dotenv() # загружаем переменные из файла .env в окружение
+
 def train_model():
-    if os.getenv("CI") == "true":
-        mlflow.set_tracking_uri("file:./mlruns") # если ci == true (происходит на github actions) тогда такой путь
-    else:
-        mlflow.set_tracking_uri("http://127.0.0.1:5000") # если локально то такой путь
+    # старый подход
+    # if os.getenv("CI") == "true":
+    #     mlflow.set_tracking_uri("file:./mlruns") # если ci == true (происходит на github actions) тогда такой путь
+    # else:
+    #     mlflow.set_tracking_uri("http://127.0.0.1:5000") # если локально то такой путь
+
+    mlflow_uri = os.getenv("MLFLOW_TRACKING_URI") # MLFLOW_TRACKING_URI создана в .env-файле. это локальное хранение
+    if mlflow_uri:
+        mlflow.set_tracking_uri(mlflow_uri)
 
     print("CI:", os.getenv("CI"))
     print("MLflow URI:", mlflow.get_tracking_uri())

@@ -1,8 +1,14 @@
 # регистрация модели в MLFlow по ее run_id. будет вызываться pipeline
 import mlflow
 from mlflow import MlflowClient
+import os
+from dotenv import load_dotenv
 
-mlflow.set_tracking_uri("http://127.0.0.1:5000")
+load_dotenv()
+
+mlflow_uri = os.getenv("MLFLOW_TRACKING_URI")
+if mlflow_uri:
+    mlflow.set_tracking_uri(mlflow_uri)
 client = MlflowClient()
 
 def register_model(run_id, model_uri):
