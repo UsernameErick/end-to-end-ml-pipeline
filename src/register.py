@@ -2,9 +2,6 @@
 import mlflow
 from mlflow import MlflowClient
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 mlflow_uri = os.getenv("MLFLOW_TRACKING_URI")
 if mlflow_uri:

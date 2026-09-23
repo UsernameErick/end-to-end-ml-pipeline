@@ -2,14 +2,11 @@
 import mlflow
 import mlflow.sklearn
 import os
-from dotenv import load_dotenv
 
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
-
-load_dotenv() # загружаем переменные из файла .env в окружение
 
 def train_model():
     # старый подход
